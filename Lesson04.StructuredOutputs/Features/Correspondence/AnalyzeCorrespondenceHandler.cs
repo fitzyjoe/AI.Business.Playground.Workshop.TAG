@@ -11,7 +11,11 @@ public sealed class AnalyzeCorrespondenceHandler(
 		AnalyzeCorrespondenceRequest request,
 		CancellationToken cancellationToken)
 	{
-		var schema = StructuredOutputJson.Options.GetJsonSchemaAsNode(typeof(CorrespondenceAnalysis));
+		var schema = StructuredOutputJson.Options.GetJsonSchemaAsNode(typeof(CorrespondenceAnalysis), exporterOptions: new JsonSchemaExporterOptions
+		{
+			TreatNullObliviousAsNonNullable = true
+		});
+		
 		var aiRequest = new AiChatRequest
 		{
 			Messages =
